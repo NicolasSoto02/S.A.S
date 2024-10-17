@@ -38,7 +38,7 @@ class Ticket(models.Model):
     user         = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     id_categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, db_column='id_categoria')
     id_prioridad = models.ForeignKey('SLA', on_delete=models.CASCADE, db_column='id_prioridad')
-    id_estado    = models.ForeignKey('Estado', on_delete=models.CASCADE, db_column='id_estado')
+    id_estado    = models.ForeignKey('Estado_Ticket', on_delete=models.CASCADE, db_column='id_estado')
 
     def __str__(self):
         return str(self.titulo)
@@ -63,7 +63,7 @@ class Foto_Ticket(models.Model):
 
 class Tipo_Sancion(models.Model):
     id_tipo_sancion = models.AutoField(db_column='id_tipo_sancion', primary_key=True)
-    sancion         = models.CharField(max_length=50, blank=False, null=False)
+    ban             = models.CharField(max_length=50, blank=False, null=False)
 
     def __str__(self):
             return str(self.sancion)
