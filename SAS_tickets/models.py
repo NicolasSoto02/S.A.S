@@ -78,3 +78,39 @@ class Sancion(models.Model):
     def __str__(self):
             return str(self.id_sancion)    
     
+class Reporte(models.Model):
+    id_reporte = models.AutoField(db_column='id_reporte', primary_key=True)
+    fecha      = models.DateTimeField(auto_now_add=True)
+    reporte    = models.FileField(upload_to='reportes/', blank=False, null=False)
+    user       = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
+    
+    def __str__(self):
+        return str(self.id_reporte)
+
+class Auditoria(models.Model):
+    id_accion = models.AutoField(db_column='id_reporte', primary_key=True) 
+    accion    = models.CharField(max_length=200, blank=False, null=False)
+    fecha     = models.DateTimeField(auto_now_add=True)
+    user      = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
+
+    def __str__(self):
+        return str(self.id_accion)
+
+class Email(models.Model):
+    id_email   = models.AutoField(db_column='id_email', primary_key=True) 
+    titulo     = models.CharField(max_length=300, blank=False, null=False)
+    mensaje    = models.CharField(max_length=5000, blank=False, null=False)
+    comentario = models.CharField(max_length=500, blank=False, null=False)
+    tipo       = models.IntegerField(blank=False, null=False)
+
+    def __str__(self):
+        return str(self.id_email)
+
+class Log_Email(models.Model):
+    id_log_email = models.AutoField(db_column='id_log_email', primary_key=True) 
+    fecha        = models.DateTimeField(auto_now_add=True)
+    id_email     = models.ForeignKey('Email', on_delete=models.CASCADE, db_column='id_email')
+    user      = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
+   
+    def __str__(self):
+        return str(self.id_log_email)
