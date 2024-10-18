@@ -111,6 +111,6 @@ class Log_Email(models.Model):
     fecha        = models.DateTimeField(auto_now_add=True)
     id_email     = models.ForeignKey('Email', on_delete=models.CASCADE, db_column='id_email')
     user      = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
-   
+
     def __str__(self):
         return str(self.id_log_email)
