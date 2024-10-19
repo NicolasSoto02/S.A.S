@@ -1,14 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Categoria,SLA,Ticket,Estado_Ticket,Mensaje
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+
 # Create your views here.
 
 def index(request):
     context = {}
     return render(request, 'SAS_tickets/index.html', context)
 
+@login_required
 def tickets(request):
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.filter(user=request.user)
     context = {
         "tickets": tickets
     }
@@ -49,3 +52,14 @@ def crear_ticket(request):
         )
 
     return render(request, 'SAS_tickets/crear_ticket.html', context)
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
