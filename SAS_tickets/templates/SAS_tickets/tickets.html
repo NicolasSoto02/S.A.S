@@ -19,6 +19,7 @@
                 <td>{{ticket.id_ticket}}</td>
                 <td>{{ticket.titulo}}</td>
                 <td>{{ticket.id_estado.estado}}</td>
+                <td><a href="{% url 'ver_ticket' ticket.id_ticket %}">Ver Ticket</a></td>
             </tr>
         {% endfor %}
         

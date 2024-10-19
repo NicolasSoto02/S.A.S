@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Categoria,SLA,Ticket,Estado_Ticket,Mensaje
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -18,6 +18,7 @@ def tickets(request):
 
     return render(request,'SAS_tickets/tickets.html', context)
 
+@login_required
 def crear_ticket(request):
     categorias = Categoria.objects.all()
     sla = SLA.objects.all()
@@ -63,3 +64,10 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+def ver_ticket(request, id_ticket):
+    ticket = get_object_or_404(Ticket, id_ticket=id_ticket)
+    context= {
+        "ticket": ticket
+    }  
+    return render(request, 'SAS_TICKETS/ver_ticket.html', context)
