@@ -10,7 +10,7 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vb;
-    background-image:url(background/background.jpg) ;
+    background-image:url(media/back/background) ;
     background-color: black;
     background-size: cover;
 }

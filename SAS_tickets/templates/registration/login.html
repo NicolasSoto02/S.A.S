@@ -11,19 +11,14 @@
     <div class="glass-container">
         <div class="login-box">
             <h2>Login</h2>
-            <form action="a" method="post">
+            <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
+                <button type="submit">Iniciar Sesión</button>
+            </form>    
+            <p>¿No tienes una cuenta? <a href="{% url 'signup' %}" id="signup">Registrarse</a></p>
 
-                <div class="options">
-                    <input type="checkbox" name="remember" id="remember">
-                    <label for="remember">Recordarme</label>
-                    <a href="#">¿Olvido su contraseña?</a>
-                </div>
-                <button type="submit">Login</button>
-                <p>¿No tienes una cuenta? <a href="{% url 'signup' %}" id="signup">Registrarse</a></p>
-            </form>
         </div>
-    </div>    
+    </div>
 </body>
 </html>
