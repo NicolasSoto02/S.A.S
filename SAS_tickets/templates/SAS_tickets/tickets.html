@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'crear_ticket' %}">Crear Ticket</a>
+    <h1>Tickets</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Titulo</th>
+            <th>Estado</th>
+        </tr>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ticket.id_ticket}}</td>
+                <td>{{ticket.titulo}}</td>
+                <td>{{ticket.id_estado.estado}}</td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+</body>
+</html>

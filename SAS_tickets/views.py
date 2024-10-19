@@ -7,6 +7,14 @@ def index(request):
     context = {}
     return render(request, 'SAS_tickets/index.html', context)
 
+def tickets(request):
+    tickets = Ticket.objects.all()
+    context = {
+        "tickets": tickets
+    }
+
+    return render(request,'SAS_tickets/tickets.html', context)
+
 def crear_ticket(request):
     categorias = Categoria.objects.all()
     sla = SLA.objects.all()
