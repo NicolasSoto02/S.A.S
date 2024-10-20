@@ -1,0 +1,136 @@
+/* Estilos generales para la navegación */
+.navbar {
+    background-color: transparent; /* Fondo transparente */
+    padding: 10px;
+    text-align: center; /* Alineación centrada */
+}
+
+/* Estilos para la lista de navegación */
+.nav-list {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Hace la lista de ítems horizontal */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Alineación vertical centrada */
+}
+
+/* Estilos para los ítems de la lista */
+.nav-list li {
+    margin: 0 15px; /* Espaciado entre los ítems */
+}
+
+/* Estilos para los enlaces */
+.nav-list a {
+    text-decoration: none; /* Elimina el subrayado */
+    color: black; /* Color de texto negro */
+    font-size: 18px; /* Tamaño de la fuente */
+    padding: 8px 15px; /* Padding alrededor del texto */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave en hover */
+}
+
+/* Hover en los enlaces */
+.nav-list a:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo semi-transparente al pasar el ratón */
+    border-radius: 5px; /* Bordes redondeados en hover */
+    color: orange; /* Cambia el color del texto en hover */
+}
+
+/* Estilos responsivos para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .nav-list {
+        flex-direction: column; /* Cambia la lista a vertical en pantallas pequeñas */
+    }
+
+    .nav-list li {
+        margin: 10px 0; /* Añade más espacio entre los ítems */
+    }
+}
+
+* {
+    font-family: monospace;
+}
+
+/* Contenedor principal centrado */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea el contenedor arriba */
+    height: 100vh; /* Altura del contenedor principal */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Caja centrada con sombra */
+.crear-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden; /* Evita que el contenido se desborde */
+    transition: height 0.3s ease; /* Transición suave al cambiar la altura */
+}
+
+/* Estilo para los formularios */
+form div {
+    margin-bottom: 15px;
+}
+
+/* Etiquetas y campos del formulario */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+h1 {
+    font-size: 40px;
+    color: #333;
+    margin-bottom: 20px; /* Espacio entre el título y la tabla */
+    text-align: center;
+}
+
+/* Estilo del textarea con límite de tamaño vertical */
+textarea {
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    resize: none; /* Evita el redimensionado manual */
+    max-height: 400px; /* Mantiene un límite de altura máxima si se quiere */
+    min-height: 100px; /* Altura mínima */
+    overflow-y: hidden; /* Oculta el scroll vertical */
+}
+
+/* Mantiene el header fijo y sin modificar la estructura */
+header {
+    flex-shrink: 0; /* Evita que el header se reduzca con el contenido */
+}

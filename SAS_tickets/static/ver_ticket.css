@@ -1,0 +1,116 @@
+/* Estilos generales para la navegación */
+.navbar {
+    background-color: transparent;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Estilos para la lista de navegación */
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos para los ítems de la lista */
+.nav-list li {
+    margin: 0 15px;
+}
+
+/* Estilos para los enlaces */
+.nav-list a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    padding: 8px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover en los enlaces */
+.nav-list a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: orange;
+}
+
+/* Estilos responsivos para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .nav-list {
+        flex-direction: column;
+    }
+
+    .nav-list li {
+        margin: 10px 0;
+    }
+}
+
+*{
+    font-family: monospace;
+}
+/*ESTILOS PARA BODY Y TODO*/
+.ke h1 {
+    font-size: 40px;
+    margin-top: 0; /* Elimina el margen superior */
+    margin-bottom: 10px; /* Ajusta el margen inferior según el espacio que quieras */
+}
+
+.ke h2 {
+    font-size: 20px;
+    color: gray;
+    margin-top: 0; /* Elimina el margen superior */
+    margin-bottom: 0; /* Ajusta el margen inferior si es necesario */
+}
+
+.mensaje-box {
+    display: flex;
+    flex-direction: row; /* Mantiene la imagen y el contenido en fila */
+    align-items: flex-start; /* Alinea los elementos al principio */
+    justify-content: space-between;
+    width: 100vw;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.mensaje-box img {
+    width: 50px; /* Tamaño de la imagen */
+    height: 50px; /* Tamaño de la imagen */
+    border-radius: 50%; /* Imagen circular */
+    margin-right: 20px; /* Espacio entre la imagen y el texto */
+}
+
+.mensaje-box .contenido {
+    flex-grow: 1; /* El contenido ocupa el resto del espacio */
+    display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
+}
+
+.mensaje-box h4 {
+    font-weight: bold; /* Username en negrita */
+    color: black;
+    margin-top: -2%;
+    font-size: 15px;
+
+}
+
+.mensaje-box p {
+    margin: 5px 0; /* Margen entre el username y el mensaje */
+    color: gray; /* Color gris para el mensaje */
+}
+
+.mensaje-box .contenido .ver-foto {
+    margin-top: 10px; /* Espacio entre el mensaje y el enlace */
+    color: blue;
+    text-decoration: underline;
+}
+
+.mensaje-box .fecha {
+    align-self: flex-start; /* Coloca la fecha en la esquina superior izquierda */
+    color: gray;
+    font-size: 12px;
+}
+
