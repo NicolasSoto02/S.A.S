@@ -2,7 +2,6 @@
     <a href="{% url 'tickets' %}">Volver</a>
 </div>
 <div>
-    <p>URL de la foto de perfil: {{ mensaje.usuario.profilepic.url }}</p>
     <h1>{{ ticket.titulo }}</h1>
     {% for mensaje in mensajes %}
         <h4>mensaje de {{mensaje.user.username}}</h4><!-- puse esta linea para poder diferenciar los mensajes pero puedes cambiarlo si te parece cuando le pongas front c: -Nico -->
@@ -13,7 +12,6 @@
         <div>
             {{mensaje.fecha}}
         </div>
-        <div>fotos</div>
         {% for foto in mensaje.foto_ticket_set.all %}
             
             <img src="{{ foto.foto.url }}"  width="150">

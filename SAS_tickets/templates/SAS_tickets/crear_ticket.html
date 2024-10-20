@@ -8,39 +8,64 @@
     <link rel="stylesheet" href="{% static 'crear_ticket.css' %}">
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                <li><a href="{% url 'tickets' %}">Volver</a></li>
+                <li><a href="#">Cerrar sesion</a></li>
+            </ul>
+        </nav>
+    </header>
     <h1>Crear Ticket</h1>
-    <form action="{% url 'crear_ticket' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div>
-            <label>Titulo</label>
-            <input name="titulo"/>
+    <div class="container">
+        <div class="crear-box">
+            <form action="{% url 'crear_ticket' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    <label>Titulo</label>
+                    <input name="titulo" required/>
+                </div>
+                <div>
+                    <label>Categoria</label>
+                    <select name="categoria" required>
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id_categoria }}">{{ categoria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label>Nivel de urgencia</label>
+                    <select name="nivel_urgencia" required>
+                        {% for prioridad in sla %}
+                            <option value="{{ prioridad.id_prioridad}}"> {{ prioridad.nombre_SLA }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <div>
+                    <label>Mensaje</label>
+                    <!-- Asigna un ID al textarea -->
+                    <textarea id="mensaje" name="mensaje" rows="4" cols="50"></textarea>
+                </div>
+                <div>
+                    <label>Adjuntar fotos (puedes seleccionar múltiples):</label>
+                    <input type="file" name="fotos" multiple accept="image/*">
+                </div>
+                <button type="submit">Crear Ticket</button>
+            </form>
         </div>
-        <div>
-            <label>Categoria</label>
-            <select name="categoria">
-                {% for categoria in categorias %}
-                    <option value="{{ categoria.id_categoria }}">{{ categoria.nombre }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div>
-            <label>Nivel de urgencia</label>
-            <select name="nivel_urgencia">
-                {% for prioridad in sla %}
-                    <option value="{{ prioridad.id_prioridad}}"> {{ prioridad.nombre_SLA }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    </div>
+    <!-- JavaScript -->
+    <script>
+        const textarea = document.querySelector('#mensaje');
 
-        <div>
-            <label>Mensaje</label>
-            <input name="mensaje"/>
-        </div>
-        <div>
-            <label>Adjuntar fotos (puedes seleccionar múltiples):</label>
-            <input type="file" name="fotos" multiple accept="image/*">
-        </div>
-        <button>Crear Ticket</button>
-    </form>
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto'; // Resetea la altura
+            this.style.height = (this.scrollHeight) + 'px'; // Ajusta la altura al contenido
+        });
+    </script>
+
+
 </body>
 </html>
