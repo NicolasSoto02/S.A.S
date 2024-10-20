@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Categoria,SLA,Ticket,Estado_Ticket,Mensaje,Usuario,Foto_Ticket
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
@@ -143,3 +143,97 @@ def perfil(request):
         "default_pfp": default_pfp
     }
     return render(request,'SAS_TICKETS/perfil.html', context)
+
+def is_superuser(user):
+    return user.is_superuser
+
+@user_passes_test(is_superuser, login_url='/login/')
+def panel_de_control(request):
+    return render(request, 'SuperUser/panel_de_control.html')
+
+@user_passes_test(is_superuser, login_url='/login/')
+def view_SLA(request):
+    sla = SLA.objects.all()
+    context ={
+        "sla":sla
+    }
+    return render(request, 'SuperUser/SLA.html', context)
+
+
+@user_passes_test(is_superuser, login_url='/login/')
+def categorias(request):
+    categorias = Categoria.objects.all()
+    context ={
+        "categorias":categorias
+    }
+    return render(request, 'SuperUser/categorias.html', context)
+
+@user_passes_test(is_superuser, login_url='/login/')
+def crear_categoria(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        Categoria.objects.create(
+            nombre = nombre,
+            descripcion = descripcion
+        )
+        return redirect('categorias')
+
+    return render(request,'SuperUser/crear_categoria.html')
+
+@user_passes_test(is_superuser, login_url='/login/')
+def editar_categoria(request, id_categoria):
+    categoria = Categoria.objects.get(id_categoria=id_categoria)
+    context = {
+        "categoria": categoria
+    }
+
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+
+        categoria.nombre      = nombre
+        categoria.descripcion = descripcion
+        categoria.save()
+
+        return redirect('categorias')
+    return render(request, 'SuperUser/editar_categoria.html', context)
+
+@user_passes_test(is_superuser, login_url='/login/')
+def borrar_categoria(request, id_categoria):
+    categoria = get_object_or_404(Categoria, id_categoria=id_categoria)
+    categoria.delete()
+    return redirect('categorias')
+
+@user_passes_test(is_superuser, login_url='/login/')
+def crear_admin(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+
+        password = User.objects.make_random_password()
+        password_short = password[-5:]
+
+        print(password)
+
+        user = User.objects.create_user(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password_short
+        )
+
+        user.is_staff = True
+        user.save()
+
+        Usuario.objects.create(
+            user=user,
+            is_techsupp=True
+        )
+        return redirect('panel_de_control')
+    return render(request, 'SuperUser/crear_admin.html')
+

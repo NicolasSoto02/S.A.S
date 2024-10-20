@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'categorias' %}">Volver</a>
+    <form action="{% url 'editar_categoria' categoria.id_categoria %}" method="POST" >
+        {% csrf_token %}
+        <div>
+            <label>Nombre</label>
+            <input name="nombre" value="{{ categoria.nombre }}"/>
+        </div>
+        <div>
+            <label>Descripcion</label>
+            <input name="descripcion" value="{{ categoria.descripcion }}"/>
+        </div>
+        <button>Guardar Categoria</button>
+    </form>
+</body>
+</html>

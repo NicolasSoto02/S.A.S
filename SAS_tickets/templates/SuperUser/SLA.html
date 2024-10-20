@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'panel_de_control' %}">Volver</a>
+    {% for prio in sla %}
+        <div>
+            Nombre: {{ prio.nombre_SLA }}
+        </div>
+        <div>
+            Tiempo de Respuesta {{ prio.respuesta_minutos}} minutos
+        </div>
+        <div>
+            Solucion Minima : {{ prio.solucion_minutos_min }} minutos
+        </div>
+        <div>
+            Solucion Maxima: {{ prio.solucion_minutos_min }} minutos
+        </div>
+        <div>
+            Nivel de Prioridad: {{ prio.nivel_prioridad }}
+        </div>
+        <div>
+            ---------------------------------------------------------- <!--borra esto cuando le pongas front pls-->
+        </div>
+    {% endfor %}
+</body>
+</html>

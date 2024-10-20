@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'panel_de_control' %}">Volver</a>
+    <a href="{% url 'crear_categoria' %}">Crear Categoría</a>
+
+    <!-- aca no se me ocurre realmente un modo de mostrar la informacion asi que lo dejo a tu criterio aksdjhaksjd-->
+    {% for categoria in categorias %}
+        <div>
+            Nombre: {{ categoria.nombre }} 
+        </div>
+        <div>
+            Descripcion {{ categoria.descripcion}}
+        </div>
+        <a href="{% url 'editar_categoria' categoria.id_categoria %}">Editar Categoría</a>
+        <form action="{% url 'borrar_categoria' categoria.id_categoria %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn" onclick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?');">Borrar</button>
+        </form>
+        <div>
+            ---------------------------------------------------------- <!--borra esto cuando le pongas front pls-->
+        </div>
+    {% endfor %}
+</body>
+</html>
