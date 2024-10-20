@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Usuario,Categoria,SLA,Estado_Ticket,Ticket,Mensaje,Foto_Ticket,Tipo_Sancion,Sancion,Reporte,Auditoria,Email,Log_Email,Derivacion
+from .models import Usuario,Categoria,Categoria_tecnico,SLA,Estado_Ticket,Ticket,Mensaje,Foto_Ticket,Tipo_Sancion,Sancion,Reporte,Auditoria,Email,Log_Email,Derivacion
 # Register your models here.
 
 admin.site.register(Usuario)
 admin.site.register(Categoria)
+admin.site.register(Categoria_tecnico)
 admin.site.register(SLA)
 admin.site.register(Estado_Ticket)
 admin.site.register(Ticket)
