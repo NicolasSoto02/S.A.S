@@ -1,0 +1,21 @@
+    <div>
+    <a href="{% url 'tickets' %}">Volver</a>
+</div>
+<h1>Perfil de Usuario</h1>
+<div>
+    {{ user.username }}
+</div>
+<div>
+    {{ user.first_name }} {{ user.last_name }}
+</div>
+<div>
+    {{ user.email}}
+</div>
+<div>
+    {% if usuario.profilepic %}
+        <img src="{{ usuario.profilepic.url }}" alt="Foto de perfil"  width="150">
+    {% else %}
+        <img src="{{ default_pfp }}" alt="Foto de perfil por defecto" width="150">
+
+    {% endif %}
+</div>

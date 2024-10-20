@@ -11,7 +11,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('signup/', views.signup, name='registration/signup'),
     path('ticket/<int:id_ticket>/', views.ver_ticket, name='ver_ticket'),
+    path('perfil/', views.perfil, name="perfil")
 
-]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

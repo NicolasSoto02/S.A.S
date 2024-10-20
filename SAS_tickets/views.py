@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.conf import settings
 
 # Create your views here.
 
@@ -110,3 +111,14 @@ def ver_ticket(request, id_ticket):
         )
         return render(request, 'SAS_TICKETS/ver_ticket.html', context)
     return render(request, 'SAS_TICKETS/ver_ticket.html', context)
+
+def perfil(request):
+    user    = request.user
+    usuario = Usuario.objects.get(user=user)
+    default_pfp = f"{settings.MEDIA_URL}pfp/default_pfp.png"
+    context = {
+        "user": user,
+        "usuario": usuario,
+        "default_pfp": default_pfp
+    }
+    return render(request,'SAS_TICKETS/perfil.html', context)
