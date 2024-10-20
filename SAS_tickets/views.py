@@ -32,7 +32,7 @@ def crear_ticket(request):
 
     if request.method == 'POST':
         titulo    = request.POST['titulo']
-        usuario   = request.user
+        user   = request.user
         categoria = request.POST['categoria']
         prioridad = request.POST['nivel_urgencia']
         estado    = Estado_Ticket.objects.get(estado="Nuevo")
@@ -43,17 +43,20 @@ def crear_ticket(request):
         estadoObj    = Estado_Ticket.objects.get(estado=estado)
         ticketObj    = Ticket.objects.create(
             titulo       = titulo,
-            user         = usuario,
+            user         = user,
             id_categoria = categoriaObj,
             id_prioridad = prioridadObj,
             id_estado    = estadoObj
         )
 
         mensajeObj   = request.POST['mensaje']
+
+        usuario = Usuario.objects.get(user=user)
         nuevo_mensaje = Mensaje.objects.create(
             mensaje   = mensajeObj,
             id_ticket = ticketObj,
-            user      = usuario
+            user      = user,
+            usuario = usuario
         )
 
         for foto_ticket in fotos_subidas:
@@ -105,21 +108,26 @@ def ver_ticket(request, id_ticket):
     ticket = get_object_or_404(Ticket, id_ticket=id_ticket)
     mensajes = Mensaje.objects.filter(id_ticket=id_ticket)
     fotos = Foto_Ticket.objects.filter(id_ticket=ticket)
-
+    default_pfp = f"{settings.MEDIA_URL}pfp/default_pfp.png"
+    
     context = {
         "ticket": ticket,
         "mensajes": mensajes,
-        "fotos": fotos
+        "fotos": fotos,
+        "default_pfp": default_pfp
     }
 
     if request.method == 'POST':
         mensaje = request.POST['mensaje']
-        usuario = request.user
+        user = request.user
+        usuario = Usuario.objects.get(user=user)
+
         fotos_subidas = request.FILES.getlist('fotos')
         nuevo_mensaje = Mensaje.objects.create(
-            mensaje=mensaje,
-            id_ticket=ticket,
-            user=usuario
+            mensaje   = mensaje,
+            id_ticket = ticket,
+            user      = user,
+            usuario   = usuario
         )
 
         for foto_ticket in fotos_subidas:
@@ -129,10 +137,10 @@ def ver_ticket(request, id_ticket):
                 id_ticket=ticket
             )
 
-        return render(request, 'SAS_TICKETS/ver_ticket.html', context)
-
+        return redirect('ver_ticket', id_ticket=ticket.id_ticket)
     return render(request, 'SAS_TICKETS/ver_ticket.html', context)
 
+@login_required
 def perfil(request):
     user    = request.user
     usuario = Usuario.objects.get(user=user)

@@ -18,7 +18,7 @@ urlpatterns = [
     path('crear_categoria/', views.crear_categoria, name="crear_categoria"),
     path('editar_categoria/<int:id_categoria>/', views.editar_categoria, name="editar_categoria"),
     path('borrar_categoria/<int:id_categoria>/', views.borrar_categoria, name="borrar_categoria"),
-    path('crear_admin/', views.crear_admin , name="crear_admin")
+    path('crear_admin/', views.crear_admin , name="crear_admin"),
     #path('', views. , name=""),
 
     

@@ -2,9 +2,11 @@
     <a href="{% url 'tickets' %}">Volver</a>
 </div>
 <div>
+    <p>URL de la foto de perfil: {{ mensaje.usuario.profilepic.url }}</p>
     <h1>{{ ticket.titulo }}</h1>
     {% for mensaje in mensajes %}
         <h4>mensaje de {{mensaje.user.username}}</h4><!-- puse esta linea para poder diferenciar los mensajes pero puedes cambiarlo si te parece cuando le pongas front c: -Nico -->
+        <img src="{{ mensaje.usuario.profilepic.url }}" width="50" onerror="this.onerror=null; this.src='{{ default_pfp }}';" alt="Foto de perfil"/>
         <div>
             {{mensaje.mensaje}} 
         </div>
