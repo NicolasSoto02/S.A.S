@@ -1,35 +1,61 @@
-
-<div>
-    <a href="{% url 'tickets' %}">Volver</a>
-</div>
-<div>
-    <h1>{{ ticket.titulo }}</h1>
-    {% for mensaje in mensajes %}
-        <h4>mensaje de {{mensaje.user.username}}</h4><!-- puse esta linea para poder diferenciar los mensajes pero puedes cambiarlo si te parece cuando le pongas front c: -Nico -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Ticket</title>
+    <link rel="stylesheet" href="{% static 'ver_ticket.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="#">Perfil</a></li>
+                <li><a href="{% url 'crear_ticket' %}">Crear Ticket</a></li>
+                <li><a href="{% url 'tickets' %}">Volver</a></li>
+                <li><a href="#">Cerrar sesion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="ke">
+        <h2>TICKET #{{ticket.id_ticket}}</h2>
+        <h1>{{ ticket.titulo }}</h1>
+        {% for mensaje in mensajes %}
+    </div>
+    <div class="mensaje-box">
         <img src="{{ mensaje.usuario.profilepic.url }}" width="50" onerror="this.onerror=null; this.src='{{ default_pfp }}';" alt="Foto de perfil"/>
-        <div>
+        <h4>{{mensaje.user.username}}</h4><!-- puse esta linea para poder diferenciar los mensajes pero puedes cambiarlo si te parece cuando le pongas front c: -Nico -->
+        <p>
             {{mensaje.mensaje}} 
-        </div>
-        <div>
+        </p>
+        <div class="fecha">
             {{mensaje.fecha}}
         </div>
         {% for foto in mensaje.foto_ticket_set.all %}
-            
-            <img src="{{ foto.foto.url }}"  width="150">
+    <a href="{{ foto.foto.url }}" target="_blank">Ver foto</a>
+{% endfor %}       
+    </div>
+    <div class="nuevomensaje-box">
         {% endfor %}
-    {% endfor %}
-    <form action="{% url 'ver_ticket' ticket.id_ticket %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h2>mensaje</h2>
-        <div>
-            <label>Mensaje</label>
-            <input name="mensaje"/>
-        </div>
-        <div>
-            <label>Adjuntar fotos (puedes seleccionar múltiples):</label>
-            <input type="file" name="fotos" multiple accept="image/*">
-        </div>
-        <button>Enviar mensaje</button>
-    </form>
-    
-</div>
+        <form action="{% url 'ver_ticket' ticket.id_ticket %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>mensaje</h2>
+            <div>
+                <label>Mensaje</label>
+                <input name="mensaje"/>
+            </div>
+            <div>
+                <label>Adjuntar fotos (puedes seleccionar múltiples):</label>
+                <input type="file" name="fotos" multiple accept="image/*">
+            </div>
+            <button>Enviar mensaje</button>
+        </form>
+        
+    </div>
+</body>
+</html>
+
+
+
+
