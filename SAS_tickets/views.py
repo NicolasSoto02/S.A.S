@@ -225,7 +225,7 @@ def crear_admin(request):
         password = User.objects.make_random_password()
         password_short = password[-5:]
 
-        print(password)
+        print(password_short)
 
         user = User.objects.create_user(
             username=username,
@@ -245,3 +245,55 @@ def crear_admin(request):
         return redirect('panel_de_control')
     return render(request, 'SuperUser/crear_admin.html')
 
+def panel_admin(request):
+
+    return render(request,'Admin/panel_admin.html')
+
+def tecnicos(request):
+    
+    techsupp = Usuario.objects.filter(is_techsupp=True)
+    print(f"{techsupp} ")
+    context = {
+        "techsupp": techsupp
+    }
+
+    return render(request, 'admin/tecnicos.html', context)
+
+def crear_tecnico(request):
+    if request.method == 'POST':
+        username   = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name  = request.POST.get('last_name')
+        email      = request.POST.get('email')
+
+        password = User.objects.make_random_password()
+        password_short = password[-5:]
+
+        print(password_short)
+
+        user = User.objects.create_user(
+            username   = username,
+            first_name = first_name,
+            last_name  = last_name,
+            email      = email,
+            password   = password_short
+        )
+
+        Usuario.objects.create(
+            user=user,
+            is_techsupp=True
+        )
+        return redirect('panel_admin')
+    return render(request, 'admin/crear_tecnico.html')
+
+def areas_tecnico(request, username):
+
+    categorias = Categoria.objects.all()
+    usuario = get_object_or_404(User, username=username)
+    
+    context = {
+        "usuario": usuario,
+        "categorias": categorias
+    }
+    
+    return render(request, 'admin/areas_tecnico.html', context)

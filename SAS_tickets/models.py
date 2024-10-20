@@ -16,6 +16,16 @@ class Categoria(models.Model):
 
     def __str__(self):
         return str(self.nombre)
+class Categoria_tecnico(models.Model):
+    id_asignacion = models.AutoField(db_column='id_asignacion', primary_key=True)
+    user       = models.ForeignKey(User, on_delete=models.CASCADE, related_name='asignacion_categoria') 
+    usuario    = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='asignacion_categoria')
+    id_categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, db_column='id_categoria')
+    
+    def __str__(self):
+         return f"{self.user.username} - {self.id_categoria.nombre}"
+
+
 
 class SLA(models.Model):
     id_prioridad         = models.AutoField(db_column='id_prioridad', primary_key=True)

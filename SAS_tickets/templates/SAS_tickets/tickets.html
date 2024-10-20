@@ -27,15 +27,14 @@
                     <th>Estado</th>
                     <th>Acción</th>
                 </tr>
-                {% for ticket in tickets %}
-                    <tr>
-                        <td>{{ticket.id_ticket}}</td>
-                        <td>{{ticket.titulo}}</td>
-                        <td>{{ticket.id_estado.estado}}</td>
-                        <td><a href="{% url 'ver_ticket' ticket.id_ticket %}">Ver Ticket</a></td>
-                    </tr>
+                <tr>
+                {% for ticket in tickets %}                 
+                    <td>{{ticket.id_ticket}}</td>
+                    <td>{{ticket.titulo}}</td>
+                    <td>{{ticket.id_estado.estado}}</td>
+                    <td><a href="{% url 'ver_ticket' ticket.id_ticket %}">Ver Ticket</a></td>
                 {% endfor %}
-                
+                </tr>
             </table>
         </div>
     </div>

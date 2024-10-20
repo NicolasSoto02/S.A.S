@@ -19,7 +19,11 @@ urlpatterns = [
     path('editar_categoria/<int:id_categoria>/', views.editar_categoria, name="editar_categoria"),
     path('borrar_categoria/<int:id_categoria>/', views.borrar_categoria, name="borrar_categoria"),
     path('crear_admin/', views.crear_admin , name="crear_admin"),
-    #path('', views. , name=""),
+    path('panel_admin/', views.panel_admin , name="panel_admin"),
+    path('tecnicos/', views.tecnicos , name="tecnicos"),
+    path('crear_tecnico/', views.crear_tecnico , name="crear_tecnico"),
+    path('areas_tecnico/<str:username>/', views.areas_tecnico , name="areas_tecnico"), 
 
+    #path('', views. , name=""),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

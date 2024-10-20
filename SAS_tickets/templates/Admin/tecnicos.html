@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--en esta de aca se me ocurre hacer que cada fila sea muy finita, 
+    onda como ver un excel por que el admin tiene que manejar cientos de empleados 
+    tonces mientras mas tecnicos se vean en pantalla mejor-->
+
+    <a href="{% url 'crear_tecnico' %}">Crear Tecnicos</a><a href="{% url 'panel_admin' %}">Volver</a>
+    <table>
+        <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Areas</th>
+        </tr>
+        {% for tecnico in techsupp %}
+            <tr>
+                <td>{{ tecnico.user.username }}</td>
+                <td>{{ tecnico.user.first_name }}</td>
+                <td>{{ tecnico.user.email }}</td>
+                <td><a href="{% url 'areas_tecnico' tecnico.user.username %}">Editar Areas</a></td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+<body>
+    <div class="glass-container">
+        <div class="register-box">
+            <h2>Registrar Tecnico</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    <input type="text" id="username" name="username" required placeholder="Username">
+                </div>
+                <div>
+                    <input type="text" id="first_name" name="first_name" required placeholder="First Name">
+                </div>
+                <div>
+                    <input type="text" id="last_name" name="last_name" required placeholder="Last Name">
+                </div>
+                <div>
+                    <input type="email" id="email" name="email" required placeholder="Email Address">
+                </div>
+
+                <button type="submit">Register</button>
+            </form>         
+        </div>
+    </div>    
+</body>
+</html>
+</body>
+</html>

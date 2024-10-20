@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="{% url 'tecnicos' %}" method="POST">
+        <select name="categoria">
+            {% for categoria in categorias %}
+                <option value="{{ categoria.id_categoria }}">{{ categoria.nombre }}</option>
+            {% endfor %}
+        </select>
+        <button>Guardar</button>
+    </form>
+</body>
+</html>
