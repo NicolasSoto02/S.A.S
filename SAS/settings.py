@@ -118,7 +118,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Asegúrate de tener una carpeta llamada 'static'
+    BASE_DIR / "SAS_tickets/static",  # Asegúrate de tener una carpeta llamada 'static'
 ]
 
 
