@@ -1,3 +1,6 @@
+*{
+    font-family: monospace;
+}
 /* Estilos generales para la navegación */
 .navbar {
     background-color: transparent; /* Fondo transparente */

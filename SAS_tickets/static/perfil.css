@@ -1,0 +1,111 @@
+/* Estilos generales para la navegación */
+.navbar {
+    background-color: transparent;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Estilos para la lista de navegación */
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos para los ítems de la lista */
+.nav-list li {
+    margin: 0 15px;
+}
+
+/* Estilos para los enlaces */
+.nav-list a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    padding: 8px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover en los enlaces */
+.nav-list a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: orange;
+}
+
+/* Estilos responsivos para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .nav-list {
+        flex-direction: column;
+    }
+
+    .nav-list li {
+        margin: 10px 0;
+    }
+}
+
+/* Contenedor principal centrado */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px); /* Altura total de la pantalla menos el espacio del navbar */
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: -100px;
+}
+
+/* Caja de perfil centrada y con fondo blanco transparente */
+.perfil-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: left; /* Alineación a la izquierda */
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Estilo centrado para el h1 (perfil) */
+h1 {
+    font-size: 40px; /* Tamaño de fuente consistente */
+    color: #333;
+    margin-top: 50px; /* Mismo margen superior que en la página de tickets */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Contenedor principal para la imagen y la información */
+.profile-content {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: flex-start;
+    gap: 20px; /* Espacio entre la imagen y la información */
+}
+
+/* Estilos para la imagen del perfil */
+.profile-image {
+    flex-shrink: 0; /* Evita que la imagen cambie de tamaño */
+}
+
+/* Estilos para la información del perfil */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Estilos para las etiquetas en los divs */
+.profile-info div {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para las etiquetas en negrita */
+.profile-label {
+    font-weight: bold;
+    margin-right: 10px; /* Espacio entre la etiqueta y el contenido */
+}
