@@ -1,7 +1,25 @@
 <div>
-    {{ ticket.id_ticket }}
+    <a href="{% url 'tickets' %}">Volver</a>
 </div>
 <div>
-    {{ ticket.titulo }}
+    <h1>{{ ticket.titulo }}</h1>
+    {% for mensaje in mensajes %}
+        <div>
+            {{mensaje.mensaje}} 
+        </div>
+        <div>
+            {{mensaje.fecha}}
+        </div>
+    {% endfor %}
+    <form action="{% url 'ver_ticket' ticket.id_ticket %}" method="POST">
+        {% csrf_token %}
+        <h2>mensaje</h2>
+        <div>
+            <label>Mensaje</label>
+            <input name="mensaje"/>
+        </div>
+        <button>Enviar mensaje</button>
+    </form>
+    
 </div>
 

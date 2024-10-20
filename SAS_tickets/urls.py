@@ -9,7 +9,7 @@ urlpatterns = [
     path('tickets', views.tickets, name="tickets"),
     path('crear_ticket',views.crear_ticket, name="crear_ticket"),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('signup/', views.signup, name='signup'),
+    path('signup/', views.signup, name='registration/signup'),
     path('ticket/<int:id_ticket>/', views.ver_ticket, name='ver_ticket'),
 
 ]
