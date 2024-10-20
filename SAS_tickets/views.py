@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Categoria,SLA,Ticket,Estado_Ticket,Mensaje,Usuario
+from .models import Categoria,SLA,Ticket,Estado_Ticket,Mensaje,Usuario,Foto_Ticket
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -36,6 +36,7 @@ def crear_ticket(request):
         categoria = request.POST['categoria']
         prioridad = request.POST['nivel_urgencia']
         estado    = Estado_Ticket.objects.get(estado="Nuevo")
+        fotos_subidas = request.FILES.getlist('fotos')
 
         categoriaObj = Categoria.objects.get(id_categoria=categoria) 
         prioridadObj = SLA.objects.get(id_prioridad=prioridad)
@@ -49,12 +50,19 @@ def crear_ticket(request):
         )
 
         mensajeObj   = request.POST['mensaje']
-        Mensaje.objects.create(
+        nuevo_mensaje = Mensaje.objects.create(
             mensaje   = mensajeObj,
             id_ticket = ticketObj,
             user      = usuario
         )
-        return redirect('tickets')
+
+        for foto_ticket in fotos_subidas:
+            Foto_Ticket.objects.create(
+                foto=foto_ticket,
+                id_mensaje = nuevo_mensaje, 
+                id_ticket  = ticketObj
+            )
+        return redirect('ver_ticket', id_ticket=ticketObj.id_ticket)
 
     return render(request, 'SAS_tickets/crear_ticket.html', context)
 
@@ -96,20 +104,33 @@ def signup(request):
 def ver_ticket(request, id_ticket):
     ticket = get_object_or_404(Ticket, id_ticket=id_ticket)
     mensajes = Mensaje.objects.filter(id_ticket=id_ticket)
-    context= {
+    fotos = Foto_Ticket.objects.filter(id_ticket=ticket)
+
+    context = {
         "ticket": ticket,
-        "mensajes": mensajes
-    }  
+        "mensajes": mensajes,
+        "fotos": fotos
+    }
 
     if request.method == 'POST':
-        mensajeObj   = request.POST['mensaje']
-        usuario   = request.user
-        Mensaje.objects.create(
-            mensaje   = mensajeObj,
-            id_ticket = ticket,
-            user      = usuario
+        mensaje = request.POST['mensaje']
+        usuario = request.user
+        fotos_subidas = request.FILES.getlist('fotos')
+        nuevo_mensaje = Mensaje.objects.create(
+            mensaje=mensaje,
+            id_ticket=ticket,
+            user=usuario
         )
+
+        for foto_ticket in fotos_subidas:
+            Foto_Ticket.objects.create(
+                foto=foto_ticket,
+                id_mensaje=nuevo_mensaje, 
+                id_ticket=ticket
+            )
+
         return render(request, 'SAS_TICKETS/ver_ticket.html', context)
+
     return render(request, 'SAS_TICKETS/ver_ticket.html', context)
 
 def perfil(request):

@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Crear Ticket</h1>
-    <form action="{% url 'crear_ticket' %}" method="POST">
+    <form action="{% url 'crear_ticket' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div>
             <label>Titulo</label>
@@ -35,6 +35,10 @@
         <div>
             <label>Mensaje</label>
             <input name="mensaje"/>
+        </div>
+        <div>
+            <label>Adjuntar fotos (puedes seleccionar múltiples):</label>
+            <input type="file" name="fotos" multiple accept="image/*">
         </div>
         <button>Crear Ticket</button>
     </form>

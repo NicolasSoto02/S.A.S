@@ -4,19 +4,29 @@
 <div>
     <h1>{{ ticket.titulo }}</h1>
     {% for mensaje in mensajes %}
+        <h4>mensaje de {{mensaje.user.username}}</h4><!-- puse esta linea para poder diferenciar los mensajes pero puedes cambiarlo si te parece cuando le pongas front c: -Nico -->
         <div>
             {{mensaje.mensaje}} 
         </div>
         <div>
             {{mensaje.fecha}}
         </div>
+        <div>fotos</div>
+        {% for foto in mensaje.foto_ticket_set.all %}
+            
+            <img src="{{ foto.foto.url }}"  width="150">
+        {% endfor %}
     {% endfor %}
-    <form action="{% url 'ver_ticket' ticket.id_ticket %}" method="POST">
+    <form action="{% url 'ver_ticket' ticket.id_ticket %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h2>mensaje</h2>
         <div>
             <label>Mensaje</label>
             <input name="mensaje"/>
+        </div>
+        <div>
+            <label>Adjuntar fotos (puedes seleccionar múltiples):</label>
+            <input type="file" name="fotos" multiple accept="image/*">
         </div>
         <button>Enviar mensaje</button>
     </form>
