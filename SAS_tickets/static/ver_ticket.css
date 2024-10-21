@@ -73,17 +73,21 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    width: 100%; /* Asegura que el ancho sea del 100% del contenedor */
-    max-width: 100%; /* Evita que exceda el ancho máximo del contenedor */
+    width: 100%;
     padding: 10px;
-    box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
+    box-sizing: border-box;
     border-top: 1px solid black;
     margin-bottom: 5px;
+    position: relative; /* Permite que elementos hijos se posicionen de manera relativa */
 }
 
 /* Ajusta los márgenes del contenido del mensaje */
 .mensaje-box .contenido {
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 /* Ajusta los márgenes de los elementos dentro del mensaje */
@@ -100,9 +104,12 @@
 }
 
 .mensaje-box .fecha {
-    margin-top: 2px; /* Mínimo espacio para la fecha */
+    position: absolute; /* Posiciona la fecha de manera absoluta dentro del mensaje */
+    top: 10px; /* Ajusta la distancia desde la parte superior */
+    left: 80%; /* Ajusta la distancia desde la izquierda */
     font-size: 12px;
     color: gray;
+    margin: 0;
 }
 
 
