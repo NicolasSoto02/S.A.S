@@ -60,25 +60,18 @@
     margin-top: 0; /* Elimina el margen superior */
     margin-bottom: 0; /* Ajusta el margen inferior si es necesario */
 }
-.ke {
-    max-width: 100%; /* Limita el ancho del contenedor principal */
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0; /* Elimina posibles padding extras */
-    margin: 0 auto; /* Asegura que esté centrado si es necesario */
-}
 /* Ajusta el margen y el padding de la caja del mensaje */
 .mensaje-box {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    width: 100%; /* Asegura que el ancho sea del 100% del contenedor */
-    max-width: 100%; /* Evita que exceda el ancho máximo del contenedor */
-    padding: 10px;
-    box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
-    border-top: 1px solid black;
-    margin-bottom: 5px;
+    width: 100vw;
+    border-top: 1px solid black; /* Reduce el grosor de la línea si es necesario */
+    border-bottom: none; /* Elimina el borde inferior */
+    padding: 10px; /* Reduce el padding */
+    margin-bottom: 5px; /* Espacio mínimo entre cada mensaje */
+    box-sizing: border-box;
 }
 
 /* Ajusta los márgenes del contenido del mensaje */
@@ -104,7 +97,6 @@
     font-size: 12px;
     color: gray;
 }
-
 
 
 /* Estilo para el formulario de nuevo mensaje */
