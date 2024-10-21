@@ -23,6 +23,7 @@ urlpatterns = [
     path('tecnicos/', views.tecnicos , name="tecnicos"),
     path('crear_tecnico/', views.crear_tecnico , name="crear_tecnico"),
     path('areas_tecnico/<str:username>/', views.areas_tecnico , name="areas_tecnico"), 
+    path('borrar_categoria_tecnico/<int:id_asignacion>/', views.borrar_categoria_tecnico, name='borrar_categoria_tecnico'),
 
     #path('', views. , name=""),
     

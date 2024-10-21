@@ -6,13 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{% url 'tecnicos' %}" method="POST">
+    <form action="{% url 'areas_tecnico' user.username %}" method="POST">
+        {% csrf_token %}
         <select name="categoria">
             {% for categoria in categorias %}
                 <option value="{{ categoria.id_categoria }}">{{ categoria.nombre }}</option>
             {% endfor %}
         </select>
-        <button>Guardar</button>
+        <button>Agregar</button>
     </form>
+    <a href="{% url 'tecnicos' %}">Volver</a>
+    <div>
+        {% for categoria_asignada in categorias_asignadas %}
+        <div>
+            {{ categoria_asignada.id_categoria.nombre}}
+            <a href="{% url 'borrar_categoria_tecnico' categoria_asignada.id_asignacion %}">Eliminar</a>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>

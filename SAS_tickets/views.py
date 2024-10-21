@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Categoria,SLA,Ticket,Estado_Ticket,Mensaje,Usuario,Foto_Ticket
+from .models import Categoria,SLA,Ticket,Estado_Ticket,Mensaje,Usuario,Foto_Ticket,Categoria_tecnico
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -252,7 +252,6 @@ def panel_admin(request):
 def tecnicos(request):
     
     techsupp = Usuario.objects.filter(is_techsupp=True)
-    print(f"{techsupp} ")
     context = {
         "techsupp": techsupp
     }
@@ -288,12 +287,35 @@ def crear_tecnico(request):
 
 def areas_tecnico(request, username):
 
-    categorias = Categoria.objects.all()
-    usuario = get_object_or_404(User, username=username)
-    
+    user = get_object_or_404(User, username=username)
+    categorias_asignadas = Categoria_tecnico.objects.filter(user=user).order_by('id_asignacion')
+    categorias_asignadasObj = Categoria_tecnico.objects.filter(user=user).values_list('id_categoria', flat=True)
+    categorias = Categoria.objects.exclude(id_categoria__in=categorias_asignadasObj)
     context = {
-        "usuario": usuario,
-        "categorias": categorias
+        "user": user,
+        "categorias": categorias,
+        "categorias_asignadas": categorias_asignadas
     }
     
+    if request.method == 'POST':
+        
+        categoria = request.POST.get('categoria')
+        usuario   = Usuario.objects.get(user=user)
+
+        categoriaObj = Categoria.objects.get(id_categoria=categoria)
+        print(categoria)
+        Categoria_tecnico.objects.create(
+            id_categoria  = categoriaObj,
+            user          = user,
+            usuario       = usuario
+        ) 
+        return redirect('areas_tecnico', username = user.username)
     return render(request, 'admin/areas_tecnico.html', context)
+
+def borrar_categoria_tecnico(request, id_asignacion):
+    
+    categoria_tecnico = get_object_or_404(Categoria_tecnico, id_asignacion=id_asignacion)
+    username = categoria_tecnico.user.username
+    categoria_tecnico.delete()
+
+    return redirect('areas_tecnico', username=username)
