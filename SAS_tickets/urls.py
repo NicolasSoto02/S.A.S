@@ -24,7 +24,9 @@ urlpatterns = [
     path('crear_tecnico/', views.crear_tecnico , name="crear_tecnico"),
     path('areas_tecnico/<str:username>/', views.areas_tecnico , name="areas_tecnico"), 
     path('borrar_categoria_tecnico/<int:id_asignacion>/', views.borrar_categoria_tecnico, name='borrar_categoria_tecnico'),
-
+    path('tickets_tecnico/', views.tickets_tecnico , name="tickets_tecnico"),
+    path('ver_ticket_tecnico/<int:id_ticket>/', views.ver_ticket_tecnico , name="ver_ticket_tecnico"),
+    path('cambiar_estado_ticket/<int:id_ticket>/', views.cambiar_estado_ticket, name='cambiar_estado_ticket'),
     #path('', views. , name=""),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

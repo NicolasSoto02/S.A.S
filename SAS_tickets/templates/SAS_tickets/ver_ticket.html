@@ -24,8 +24,11 @@
         {% for mensaje in mensajes %}
     </div>
     <div class="mensaje-box">
-        <img src="{{ mensaje.usuario.profilepic.url }}" width="50" onerror="this.onerror=null; this.src='{{ default_pfp }}';" alt="Foto de perfil"/>
-        <div class="contenido">
+        {% if mensaje.usuario.profilepic %}
+            <img src="{{ mensaje.usuario.profilepic.url }}" width="50" onerror="this.onerror=null; this.src='{{ default_pfp }}';" alt="Foto de perfil"/>
+        {% else %}
+            <img src="{{ default_pfp }}" width="50" alt="Foto de perfil por defecto"/>
+         {% endif %}        <div class="contenido">
             <h4>{{mensaje.user.username}}</h4>
             <p>{{mensaje.mensaje}}</p>
             <div class="ver-foto">

@@ -1,0 +1,97 @@
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ver Ticket</title>
+        <link rel="stylesheet" href="{% static 'ver_ticket.css' %}">
+    </head>
+    <body>
+        
+        <header>
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li><a href="#">Perfil</a></li>
+                    <li><a href="{% url 'crear_ticket' %}">Crear Ticket</a></li>
+                    <li><a href="{% url 'tickets' %}">Volver</a></li>
+                    <li><a href="#">Cerrar sesion</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="ke">
+            <h2>TICKET #{{ticket.id_ticket}}</h2>
+            <h1>{{ ticket.titulo }}</h1>
+        
+            {% for mensaje in mensajes %}
+        </div>
+        <div class="mensaje-box">
+            {% if mensaje.usuario.profilepic %}
+                <img src="{{ mensaje.usuario.profilepic.url }}" width="50" onerror="this.onerror=null; this.src='{{ default_pfp }}';" alt="Foto de perfil"/>
+            {% else %}
+                <img src="{{ default_pfp }}" width="50" alt="Foto de perfil por defecto"/>
+            {% endif %}        <div class="contenido">
+                <h4>{{mensaje.user.username}}</h4>
+                <p>{{mensaje.mensaje}}</p>
+                <div class="ver-foto">
+                    {% for foto in mensaje.foto_ticket_set.all %}
+                        <a href="{{ foto.foto.url }}" target="_blank">Ver foto</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="fecha">
+                {{mensaje.fecha}}
+            </div>
+        </div>
+        
+        <div class="nuevomensaje-box">
+            {% endfor %}
+            <form action="{% url 'cambiar_estado_ticket' ticket.id_ticket %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <select name="estado">
+                    {% for estado in estados %}
+                        <option value="{{ estado.id_estado }}" {% if estado.id_estado == ticket.id_estado.id_estado %}selected{% endif %}>
+                            {{ estado.estado }}
+                        </option>
+                    {% endfor %}                
+                </select>
+                <button>Actualizar Estado</button>
+            </form>
+            <form action="{% url 'ver_ticket' ticket.id_ticket %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>Nuevo Mensaje</h2>
+                <div class="mensaje-input">
+                    <textarea id="mensaje" name="mensaje" rows="4" cols="50" placeholder="Escribe tu mensaje..."></textarea>
+                </div>
+                <div class="mensaje-input">
+                    <label>Adjuntar fotos (puedes seleccionar múltiples):</label>
+                    <input type="file" name="fotos" multiple accept="image/*">
+                </div>
+                <button>Enviar mensaje</button>
+            </form>
+            
+        </div>
+        
+        <script>
+    const textarea = document.querySelector('#mensaje');
+
+    textarea.addEventListener('input', function() {
+        // Resetea la altura primero
+        this.style.height = 'auto';
+
+        // Ajusta la altura para que coincida con el contenido
+        this.style.height = (this.scrollHeight) + 'px'; 
+
+        // Asegura que el textarea se expanda hacia abajo
+        this.scrollTop = this.scrollHeight; 
+    });
+
+
+        </script>
+    </body>
+    </html>
+
+
+
+

@@ -319,3 +319,70 @@ def borrar_categoria_tecnico(request, id_asignacion):
     categoria_tecnico.delete()
 
     return redirect('areas_tecnico', username=username)
+
+def tickets_tecnico(request):
+    
+    categorias_asignadas = Categoria_tecnico.objects.filter(usuario__user=request.user).values_list('id_categoria', flat=True)
+    tickets = Ticket.objects.filter(id_categoria__in=categorias_asignadas)
+    default_pfp = f"{settings.MEDIA_URL}pfp/default_pfp.png"
+    context = {
+        "tickets": tickets,
+        "default_pfp": default_pfp
+    }
+
+
+    return render(request,'tecnico/tickets_tecnico.html', context )
+
+def ver_ticket_tecnico(request, id_ticket):
+    ticket = get_object_or_404(Ticket, id_ticket=id_ticket)
+    mensajes = Mensaje.objects.filter(id_ticket=id_ticket)
+    fotos = Foto_Ticket.objects.filter(id_ticket=ticket)
+    default_pfp = f"{settings.MEDIA_URL}pfp/default_pfp.png"
+    estados = Estado_Ticket.objects.all()
+
+    context = {
+        "ticket": ticket,
+        "mensajes": mensajes,
+        "fotos": fotos,
+        "default_pfp": default_pfp,
+        "estados": estados
+    }
+
+    if request.method == 'POST':
+        mensaje = request.POST['mensaje']
+        user = request.user
+        usuario = Usuario.objects.get(user=user)
+        
+        fotos_subidas = request.FILES.getlist('fotos')
+        nuevo_mensaje = Mensaje.objects.create(
+            mensaje   = mensaje,
+            id_ticket = ticket,
+            user      = user,
+            usuario   = usuario
+        )
+
+        for foto_ticket in fotos_subidas:
+            Foto_Ticket.objects.create(
+                foto=foto_ticket,
+                id_mensaje=nuevo_mensaje, 
+                id_ticket=ticket
+            )
+
+        return redirect('ver_ticket', id_ticket=ticket.id_ticket)
+    return render(request, 'Tecnico/ver_ticket_tecnico.html', context)
+
+def cambiar_estado_ticket(request, id_ticket):
+    ticket = get_object_or_404(Ticket, id_ticket=id_ticket)
+    estados = Estado_Ticket.objects.all()  # Obtiene todos los estados disponibles
+
+    if request.method == 'POST':
+        nuevo_estado_id = request.POST.get('estado')
+        ticket.id_estado_id = nuevo_estado_id  # Cambia el estado del ticket
+        ticket.save()  # Guarda los cambios
+        return redirect('ver_ticket_tecnico', id_ticket=ticket.id_ticket)  # Redirige a la vista del ticket actualizado
+
+    context = {
+        'ticket': ticket,
+        'estados': estados,
+    }
+    return render(request, 'Tecnico/ver_ticket_tecnico.html', context)
