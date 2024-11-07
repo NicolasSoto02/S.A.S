@@ -13,8 +13,12 @@
             <h2>Login</h2>
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Iniciar Sesión</button>
+                <div class="form-group">
+                    {{ form.username.label_tag }} {{ form.username }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label_tag }} {{ form.password }}
+                </div>                <button type="submit">Iniciar Sesión</button>
             </form>    
             <p>¿No tienes una cuenta? <a href="/SAS_tickets/signup/" id="signup">Registrarse</a></p>
 
